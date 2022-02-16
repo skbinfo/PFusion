@@ -1,0 +1,6 @@
+ERIC	fusion_eric_arabidopsis.results.filtered.tsv
+MAPSPLICE	fusions_candidates.txt
+SQUID	squid_out_sv.txt
+STARFUSION	star-fusion.fusion_predictions.abridged.coding_effect.tsv
+FUSIONBLOOM	sv.bedpe
+TRINITY	TrinityFusion-UC.fusion_predictions.tsv
