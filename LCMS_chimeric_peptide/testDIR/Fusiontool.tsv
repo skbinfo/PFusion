@@ -1,7 +1,0 @@
-Tool	Gene1	Chr1	BPG1	Strand1	Gene2	Chr2	BPG2	Strand2
-TRINITY	6	[Delimiter=:]7[0]	[Delimiter=:]7[1]	NA	8	[Delimiter=:]9[0]	[Delimiter=:]9[1]	NA
-STARFUSION	7	[Delimiter=:]8[0]	[Delimiter=:]8[1]	[Delimiter=:]8[2]	9	[Delimiter=:]10[0]	[Delimiter=:]10[1]	[Delimiter=:]10[2]
-ERIC	1	3	4	5	2	6	7	8
-MAPSPLICE	NA	[Delimiter=~]1[0]	2	[Delimiter=none]6[0]	NA	[Delimiter=~]1[1]	3	[Delimiter=none]6[1]
-SQUID	NA	1	[if[9="-"]then 2][if[9="+"]then 3]	9	NA	4	[if[10="-"]then 5][if[10="+"]then 6]	10
-FUSIONBLOOM	15	1	17	9	20	4	22	10
