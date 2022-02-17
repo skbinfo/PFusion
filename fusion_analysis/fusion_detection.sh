@@ -1,6 +1,11 @@
 #! /bin/bash
 
-#Author Ajeet Singh, singh.ajeet@nipgr.ac.in
+# Author Ajeet Singh
+# Email: singh.ajeet@nipgr.ac.in
+# Contributor: Malini Nemalikanti, Rohan Bhardwaj
+
+# This script detects the fusion from RNA-Seq samples 
+# Usage: fusion_analysis.sh SAMPLE_ID[SRR_NUM]
 
 
 srr_id="$1"
