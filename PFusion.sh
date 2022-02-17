@@ -174,15 +174,11 @@ fi
 if [ -d "$run_dir/ericscript_out" ]; then
         echo $'\n'"ericscript_out exists for $srr_id"$'\n'
 else
-#        echo $'\n'"Calculating read length"$'\n'
-#        read1_length=$(sed -n '2~4'p $left_fq_filename|head -100|awk '{print length($1)}'|sort -n|tail -n 1)
-#        read2_length=$(sed -n '2~4'p $right_fq_filename|head -100|awk '{print length($1)}'|sort -n|tail -n 1)
-#        read_length=$(printf "$read1_length\n$read2_length\n"|sort -u|sort -n|tail -n 1)
-#        echo $'\n'"Read length is $read_length"$'\n'
-#        ${ericscript} -p 100 -rl $read_length --refid oryza_indica -name ${srr_id} -o $run_dir/ericscript_out ${left_fq_filename} ${right_fq_filename} > $run_dir/ericscript_log.txt
 	if [ "$group" == "indica" ];then
+		#perl /mnt/storage/sklab202/software/EricScript-Plants/EricScript-Plants/ericscript.pl --downdb --refid oryza_indica
 		${ericscript} -p 100 --refid oryza_indica -name ${srr_id} -o $run_dir/ericscript_out ${left_fq_filename} ${right_fq_filename} > $run_dir/ericscript_log.txt
 	elif [ "$group" == "japonica" ];then
+		#perl /mnt/storage/sklab202/software/EricScript-Plants/EricScript-Plants/ericscript.pl --downdb --refid oryza_sativa
 		${ericscript} -p 100 --refid oryza_sativa -name ${srr_id} -o $run_dir/ericscript_out ${left_fq_filename} ${right_fq_filename} > $run_dir/ericscript_log.txt
 	fi
 	rm -rf $run_dir/ericscript_out/aln
@@ -194,5 +190,4 @@ else
 
         echo $'\n'"Ericscript-Plants run completed"$'\n'
 fi
-#perl /mnt/storage/sklab202/software/EricScript-Plants/EricScript-Plants/ericscript.pl --downdb --refid oryza_indica
-#rm -f $left_fq_filename $right_fq_filename
+rm -f $left_fq_filename $right_fq_filename
