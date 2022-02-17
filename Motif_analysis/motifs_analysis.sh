@@ -1,11 +1,18 @@
 #! /bin/bash
 
-#This script is designed for 1. prepare a BED files for all brekpoints in FuMa overlap results
-#                            2. get the fasta file from prepared BED file
-#singh.ajeet@nipgr.ac.in
+# Author: Ajeet Singh
+# Email: singh.ajeet@nipgr.ac.in
+
+# This script is designed for:
+#  1. prepare a BED files for all brekpoints in FuMa overlap results
+#  2. get the fasta file from prepared BED file
 
 #REF: https://doi.org/10.1093/nar/gkz1223 
-#To identify motifs present in the 5′ and 3′ parental genes, we used the Gapped Local Alignment of Motifs (GLAM2) tool (40) from the MEME SUITE (41) with default parameters to find enriched motifs in the 200 bp upstream and downstream sequences from the breakpoint position. Further, we used the Tomtom tool (42) from MEME SUITE (41) with default parameters on the list of identified motifs and scanned a database of RNA binding protein motifs (43)
+#To identify motifs present in the 5′ and 3′ parental genes, we used the
+#Gapped Local Alignment of Motifs (GLAM2) tool from the MEME SUITE with default parameters
+#to find enriched motifs in the 200 bp upstream and downstream sequences from the 
+#breakpoint position. Further, we used the Tomtom tool from MEME SUITE with default 
+#parameters on the list of identified motifs and scanned a database of RNA binding protein motifs.
 
 SRR=$1
 fuma=$SRR/FuMA_overlap_no_if.txt
