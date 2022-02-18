@@ -1,4 +1,9 @@
-#RNA-Seq pipeline script
+#! /bin/sh
+
+#Author: Ajeet Singh
+#Email: singh.ajeet@nipgr.ac.in
+
+#This pipeline detects SNPs from RNA-Seq samples - control vs treated
 
 sgi=/home/nipgr/Documents/chickpea/genome_files/STAR_FUSION_CHICKPEA_LIB/ref_genome.fa.star.idx
 fastp=/home/nipgr/software/fastp
@@ -6,8 +11,8 @@ gatk=/home/nipgr/software/gatk-4.2.0.0/gatk
 bcftools=/home/nipgr/software/bcftools/bin/bcftools
 genome=/home/nipgr/Documents/chickpea/genome_files/GCF_000331145.1_ASM33114v1_genomic.fna
 
-#Aschochyta
-#Control
+###############################################################
+#Aschochyta - Control
 for file in $(<Aschochyta/Aschochyta_Infected_Control.txt)
 do
 find /home/nipgr/Documents/chickpea/ -name "$file\.sra" -exec fasterq-dump -3 -p -O Aschochyta/control/ "{}" \;
@@ -40,9 +45,9 @@ $gatk AddOrReplaceReadGroups -I Aschochyta/infected/${file}Aligned.sortedByCoord
 $gatk MarkDuplicates -I Aschochyta/infected/${file}Aligned.sortedByCoord.RG.out.bam -O Aschochyta/infected/${file}Aligned.sortedByCoord.RG.dedupped.out.bam --REMOVE_DUPLICATES true --CREATE_INDEX true --VALIDATION_STRINGENCY SILENT -M Aschochyta/infected/${file}_output_metrics.txt
 
 done
+##############################################################
 
-#CO2_stress
-#Control
+#CO2_stress - Control
 for file in $(<CO2_stress/CO2_Control.txt)
 do
 find /home/nipgr/Documents/chickpea/ -name "$file\.sra" -exec fasterq-dump -3 -p -O CO2_stress/control/ "{}" \;
@@ -75,9 +80,9 @@ $gatk AddOrReplaceReadGroups -I CO2_stress/stress/${file}Aligned.sortedByCoord.o
 $gatk MarkDuplicates -I CO2_stress/stress/${file}Aligned.sortedByCoord.RG.out.bam -O CO2_stress/stress/${file}Aligned.sortedByCoord.RG.dedupped.out.bam --REMOVE_DUPLICATES true --CREATE_INDEX true --VALIDATION_STRINGENCY SILENT -M CO2_stress/stress/${file}_output_metrics.txt
 
 done
+########################################################
 
-#Drought_stress
-#Control
+#Drought_stress - Control
 for file in $(<Drought_stress/Drought_Control.txt)
 do
 find /home/nipgr/Documents/chickpea/ -name "$file\.sra" -exec fasterq-dump -3 -p -O Drought_stress/control/ "{}" \;
@@ -110,9 +115,9 @@ $gatk AddOrReplaceReadGroups -I Drought_stress/stress/${file}Aligned.sortedByCoo
 $gatk MarkDuplicates -I Drought_stress/stress/${file}Aligned.sortedByCoord.RG.out.bam -O Drought_stress/stress/${file}Aligned.sortedByCoord.RG.dedupped.out.bam --REMOVE_DUPLICATES true --CREATE_INDEX true --VALIDATION_STRINGENCY SILENT -M Drought_stress/stress/${file}_output_metrics.txt
 
 done
+##########################################################
 
-#Foc1
-#Control
+#Foc1 - Control
 for file in $(<Foc1/Foc1_Infected_Control.txt)
 do
 find /home/nipgr/Documents/chickpea/ -name "$file\.sra" -exec fasterq-dump -3 -p -O Foc1/control/ "{}" \;
@@ -145,9 +150,9 @@ $gatk AddOrReplaceReadGroups -I Foc1/infected/${file}Aligned.sortedByCoord.out.b
 $gatk MarkDuplicates -I Foc1/infected/${file}Aligned.sortedByCoord.RG.out.bam -O Foc1/infected/${file}Aligned.sortedByCoord.RG.dedupped.out.bam --REMOVE_DUPLICATES true --CREATE_INDEX true --VALIDATION_STRINGENCY SILENT -M Foc1/infected/${file}_output_metrics.txt
 
 done
+#####################################################
 
-#Fusarium
-#Control
+#Fusarium - Control
 for file in $(<Fusarium/Fusarium_Infected_Control.txt)
 do
 find /home/nipgr/Documents/chickpea/ -name "$file\.sra" -exec fasterq-dump -3 -p -O Fusarium/control/ "{}" \;
@@ -180,9 +185,9 @@ $gatk AddOrReplaceReadGroups -I Fusarium/infected/${file}Aligned.sortedByCoord.o
 $gatk MarkDuplicates -I Fusarium/infected/${file}Aligned.sortedByCoord.RG.out.bam -O Fusarium/infected/${file}Aligned.sortedByCoord.RG.dedupped.out.bam --REMOVE_DUPLICATES true --CREATE_INDEX true --VALIDATION_STRINGENCY SILENT -M Fusarium/infected/${file}_output_metrics.txt
 
 done
+#########################################################
 
-#H.armigera
-#Control
+#H.armigera - Control
 for file in $(<H.armigera/H.armigera_infected_and_wounded_Control.txt)
 do
 find /home/nipgr/Documents/chickpea/ -name "$file\.sra" -exec fasterq-dump -3 -p -O H.armigera/control/ "{}" \;
@@ -215,9 +220,9 @@ $gatk AddOrReplaceReadGroups -I H.armigera/infected/${file}Aligned.sortedByCoord
 $gatk MarkDuplicates -I H.armigera/infected/${file}Aligned.sortedByCoord.RG.out.bam -O H.armigera/infected/${file}Aligned.sortedByCoord.RG.dedupped.out.bam --REMOVE_DUPLICATES true --CREATE_INDEX true --VALIDATION_STRINGENCY SILENT -M H.armigera/infected/${file}_output_metrics.txt
 
 done
+##########################################################
 
-#NaCl_stress
-#Control
+#NaCl_stress - Control
 for file in $(<NaCl_stress/NaCl_Control.txt)
 do
 find /home/nipgr/Documents/chickpea/ -name "$file\.sra" -exec fasterq-dump -3 -p -O NaCl_stress/control/ "{}" \;
