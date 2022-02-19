@@ -40,7 +40,7 @@ run_dir="/mnt/ISOLON/Fusion_Oryza/oryza_${group}_fusion_result/$srr_id"
 
 #Check for results
 
-if [ -d "$run_dir/STARFusion-out" ] && [ -f "$run_dir/squid_out_sv.txt" ] &&  [ -d "$run_dir/mapsplice_out" ] && [ -d "$run_dir/FusionBloom_out" ] && [ -d "$run_dir/TrinityFusion_out" ]; then
+if [ -d "$run_dir/STARFusion-out" ] && [ -f "$run_dir/squid_out_sv.txt" ] &&  [ -d "$run_dir/mapsplice_out" ] && [ -d "$run_dir/FusionBloom_out" ] && [ -d "$run_dir/TrinityFusion_out" ] && [ -d "$run_dir/ericscript_out" ]; then
 	echo $'\n'"Results already present for $srr_id"$'\n'
 	exit 1
 fi

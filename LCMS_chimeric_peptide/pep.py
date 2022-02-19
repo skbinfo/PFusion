@@ -47,6 +47,12 @@ def charposition(mstring , mchar):
             posi.append(n)
     return posi
 
+# function to get mid point and sides
+def getpo(seqstr,mp,smp,emp):
+    mp  = int(round(len(seqstr)/2))
+    smp = mp-2
+    emp = mp+1
+
 
 def bedprint(g1a,g1b,g1c,g1d,g2a,g2b,g2c,g2d):
     if g1d=="+":
@@ -110,15 +116,20 @@ def bedprint(g1a,g1b,g1c,g1d,g2a,g2b,g2c,g2d):
     mystr=""
     for record in SeqIO.parse(srr_id+"_pep.fa", 'fasta'):
         list='>{}\t{}'.format(record.description, record.seq)
-        if not "*" in list.split('\t')[1][64:67]:
-            mystr=list.split('\t')[1][64:67]
-        else:
-            mystr="XX"
 
         for seq in list.split('\t')[1].split():
+            mp  = round(len(seq)/2)
+            smp = mp-2
+            emp = mp+1
+
+            if not "*" in seq[smp:emp]:
+                mystr=seq[smp:emp]
+            else:
+                mystr="XX"
+
             if "*" in seq:
                 posi = charposition(seq, '*')
-                i = bisect.bisect_left(posi , 65)
+                i = bisect.bisect_left(posi , mp)
                 mend = posi[i]
                 mstart = posi[i - 1]
                 chunke = seq[mstart +1 :mend]
@@ -127,7 +138,7 @@ def bedprint(g1a,g1b,g1c,g1d,g2a,g2b,g2c,g2d):
                     f.write("%s\n" % chunke)
 
             if not "*" in seq:
-                if seq.endswith(mystr, 64, 67) == True:
+                if seq.endswith(mystr, smp, emp) == True:
                     with open(srr_id+"_sel_pep.fa", 'w') as f:
                         f.write("%s\n" % heade)
                         f.write("%s\n" % seq)
@@ -152,6 +163,7 @@ def bedprint(g1a,g1b,g1c,g1d,g2a,g2b,g2c,g2d):
                         for seq in i.strip().split(' ')[-1].split():
                             if mystr in seq:
                                 with open(srr_id+"_final_pep.fa", 'a') as f:
+                                    f.write("#%s\n" % mystr)
                                     f.write(">%s\n" % mheade)
                                     f.write("%s\n" % seq)
                                 
@@ -295,11 +307,9 @@ if __name__ == '__main__':
     squidfBED(squidf)
     fusionbloomfBED(fusionbloomf)
 
-
 removef=['rm','-f', srr_id+'.bed', srr_id+'.fa', srr_id+".concat.fa", srr_id+".pepdigest", srr_id+"_pep.fa", srr_id+"_sel_pep.fa", 'error']
 try:
     subprocess.run(removef, check=True)
 except subprocess.CalledProcessError as e:
     print("\nError!\n")
     sys.exit(e.stderr)
-

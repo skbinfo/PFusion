@@ -1,0 +1,41 @@
+ 
+ 
+
+
+  set filename [tk_getOpenFile]
+  set sfilename [tk_getSaveFile -title "Save text File"  -defaultextension ".txt"] 
+  if {!([catch {open $filename r} fileid err] || [catch {open $sfilename w} save_fileid err])} {
+
+    while {[eof $fileid] != 1} {
+
+      set line [gets $fileid]
+      if {[regexp {([^;]*);([^;]*);([^;]*);([^;]*);([^;]*);([^;]*);([^;]*);([^;]*);} $line - enz seq cut5 cut3 met type suppliers buffers]} {
+
+        if {[regexp {[\s#]} $enz]} {continue}
+        set result [list]
+        if {$suppliers ne {}} {
+          set url "http://rebase.neb.com/cgi-bin/ecget?$enz" 
+          set x [::http::geturl $url -timeout 4000]
+          set html  [::http::data $x]
+          ::http::cleanup $x
+          foreach {l supp_letter name anchor temp} [regexp -inline -all {<td bgcolor=#FFFFFF><font size=2><A HREF=/rebase/supps/([A-Z]):__(.*?).html>[A-Za-z\s\_\.\,\-]+?</A></font></td>\n<td bgcolor=#FFFFFF><font size=2>(-|<A .*?</A>)</font></td>\n<td bgcolor=#FFFFFF><font size=2>(-|[0-9]+?)</font></td>} $html] {
+              lappend result "$supp_letter\:$temp" 
+           }
+           sputs $enz:[join $result ","]
+         }
+         puts $save_fileid "$line[join $result ","];"
+      } else {
+        puts $save_fileid "$line"
+        sputs line_err: $line
+      }
+    }
+  }
+  close $fileid
+  close $save_fileid
+
+
+
+
+foreach {l supp_letter name anchor temp} [regexp -inline -all {<td bgcolor=#FFFFFF><font size=2><A HREF=/rebase/supps/([A-Z]):__([^\.]*).html>[A-Za-z\s]+</A></font></td>\n<td bgcolor=#FFFFFF><font size=2>(-|<A [^\.]*>[^\.]*</A>)</font></td>\n<td bgcolor=#FFFFFF><font size=2>(-|[0-9]+)</font></td>} $html] {sputs $supp_letter $temp}
+
+
