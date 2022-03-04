@@ -40,8 +40,9 @@ except subprocess.CalledProcessError as e:
     print("\nError!\n")
     sys.exit(e.stderr)
 
-posi=[]
+#posi=[]
 def charposition(mstring , mchar):
+    posi=[]
     for n in range(len(mstring)):
         if mstring[n] == mchar:
             posi.append(n)
@@ -125,19 +126,29 @@ def bedprint(g1a,g1b,g1c,g1d,g2a,g2b,g2c,g2d):
             if not "*" in seq[smp:emp]:
                 mystr=seq[smp:emp]
             else:
-                mystr="XX"
+                mystr="___"
 
             if "*" in seq:
-                posi = charposition(seq, '*')
-                i = bisect.bisect_left(posi , mp)
-                mend = posi[i]
-                mstart = posi[i - 1]
-                chunke = seq[mstart +1 :mend]
+                position = charposition(seq, '*')
+                i = bisect.bisect_left(position , mp)
+                if i != 0:
+                    for allnum in position:
+                        if mp < allnum:
+                            mend = position[i]
+                        elif mp > allnum:
+                            mend = len(seq)
+                    mstart = position[i - 1]
+                    chunke = seq[mstart +1:mend]
+                elif i == 0:
+                    mend = position[0]
+                    chunke = seq[0:mend]
+
                 with open(srr_id+"_sel_pep.fa", 'w') as f:
                     f.write("%s\n" % heade)
                     f.write("%s\n" % chunke)
 
-            if not "*" in seq:
+            #if not "*" in seq:
+            else:
                 if seq.endswith(mystr, smp, emp) == True:
                     with open(srr_id+"_sel_pep.fa", 'w') as f:
                         f.write("%s\n" % heade)
@@ -163,7 +174,7 @@ def bedprint(g1a,g1b,g1c,g1d,g2a,g2b,g2c,g2d):
                         for seq in i.strip().split(' ')[-1].split():
                             if mystr in seq:
                                 with open(srr_id+"_final_pep.fa", 'a') as f:
-                                    f.write("#%s\n" % mystr)
+                                    #f.write("#%s\n" % mystr)
                                     f.write(">%s\n" % mheade)
                                     f.write("%s\n" % seq)
                                 
