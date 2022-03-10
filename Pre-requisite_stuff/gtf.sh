@@ -24,4 +24,20 @@ do
 	else
 		echo "$i"
 	fi
-done | awk -F\\t '!seen[$0]++' OFS='\t'
+done | awk -F\\t '!seen[$0]++' OFS='\t' > genome_transcript.gtf
+
+# This part is for gtf exclusively for FusionBloom
+
+#$2=Give cdna file as input
+if [[ ! -z "$2" ]];then
+	grep -o "transcript_id.*" genome_transcript.gtf|cut -f2 -d " "|sort -u|sed 's/"\|";//g'|sort >tid_gtf
+	grep ">" $2|cut -f1 -d " "|sed 's/>//g' |sort >tid_cdna
+	comm -12 tid_cdna tid_gtf > comm_tid
+	grep -wf comm_tid genome_transcript.gtf > comm.gtf
+	sort -t $'\t' -k1,1V -k4,4n -k5,5n comm.gtf > fusion_bloom.gtf
+	bgzip fusion_bloom.gtf
+	tabix fusion_bloom.gtf.gz
+	rm tid_gtf tid_cdna comm_tid comm.gtf
+fi
+	
+
