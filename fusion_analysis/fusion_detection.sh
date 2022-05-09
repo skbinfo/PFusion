@@ -164,7 +164,7 @@ echo $'\n'"###### RUNNING TRINITY-FUSION ######"$'\n'
 if [ -d "$run_dir/TrinityFusion_out" ]; then
 	echo $'\n'"TrinityFusion_out exists for $srr_id"$'\n'
 else 
-	export CTAT_GENOME_LIB=$CTAT_GENOME_LIB:/mnt/storage/sklab202/genome_files/CTAT_Library/ctat_genome_lib_build_dir/
+	#for arabidopsis: export CTAT_GENOME_LIB=$CTAT_GENOME_LIB:/mnt/storage/sklab202/genome_files/CTAT_Library/ctat_genome_lib_build_dir/
 	$TrinityFusion --left_fq ${left_fq_filename} --right_fq ${right_fq_filename} --chimeric_junctions $run_dir/STARFusion-out/Chimeric.out.junction --aligned_bam $run_dir/STARFusion-out/Aligned.out.bam --genome_lib_dir ${CTAT_BUILD_DIR} --output_dir $run_dir/TrinityFusion_out --CPU 55
 		if [ "$?" -ne "0" ]; then
                         echo $'\n'"Trinity-Fusion run failed for $srr_id at line $LINENO"$'\n'
