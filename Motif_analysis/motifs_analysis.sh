@@ -122,5 +122,6 @@ bedtools getfasta -fi ~/Documents/chickpea/genome_files/GCF_000331145.1_ASM33114
 rm 3xxeeu5.bed 3xxeeu3.bed
 
 #/home/nipgr/software/meme-5.3.3/bin/glam2 n -o zch all_up_down_200bp_5_3_prime.fa
-#/home/nipgr/software/meme-5.3.3/bin/tomtom glam2.meme glam2.meme
-#tomtom -no-ssc -oc . -verbosity 1 -min-overlap 5 -dist pearson -evalue -thresh 10.0 glam2.meme db/JASPAR/JASPAR2018_CORE_vertebrates_non-redundant.meme db/MOUSE/uniprobe_mouse.meme db/EUKARYOTE/jolma2013.meme
+#cd /home/nipgr/Documents/chickpea/zch
+#/home/nipgr/software/meme-5.3.3/bin/tomtom -no-ssc -oc . -verbosity 1 -min-overlap 5 -dist pearson -evalue -thresh 10.0 glam2.meme \
+../Motifs_study/motif_databases/RNA/Ray2013_rbp_All_Species.dna_encoded.meme
