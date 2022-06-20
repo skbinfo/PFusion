@@ -49,4 +49,4 @@ done
 
 cat $1| while read resline; do TypeSeparate "$resline"; done
 
-
+# Binding site prediction: http://plantregmap.gao-lab.org/binding_site_prediction.php E-value: 1e-7 or 0.0000001
